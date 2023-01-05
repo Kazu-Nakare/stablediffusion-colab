@@ -2,4 +2,5 @@ diffusers==0.11.1
 flask==2.2.2
 ftfy==6.1.1
 scipy==1.10.0
+torch==1.13.1
 transformers==4.25.1
