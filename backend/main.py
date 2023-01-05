@@ -23,7 +23,7 @@ def index(path):
 def generate():
     prompt = request.json["prompt"]
     with autocast("cuda"):
-        image = pipe(prompt)["sample"][0]
+        image = pipe(prompt)["images"][0]
         buf = io.BytesIO()
         image.save(buf, format="PNG")
         buf.seek(0)
