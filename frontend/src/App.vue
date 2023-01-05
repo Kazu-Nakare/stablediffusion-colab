@@ -31,15 +31,15 @@ export default {
           })
           .then((response) => {
             //blobオブジェクトにしたい場合
+            console.log(response)
             let blob = new Blob([response.data], { type: 'image/png' })
 
             //imgタグをidでとって、srcにblobのObjectURLを突っ込んで画像表示する
-            let img = document.getElementById('img_tag_id')
             let url = window.URL || window.webkitURL
-            img.src = url.createObjectURL(blob)
+            let src = url.createObjectURL(blob)
 
-            console.log(img.src)
-            this.images.push({url: img.src})
+            console.log(src)
+            this.images.push({url: src})
           })
           .catch((err) => {
             console.log(err);
