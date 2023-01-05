@@ -2,10 +2,13 @@
   <div id="app">
     <h1>Hello World</h1>
     <img alt="Vue logo" src="./assets/logo.png" />
-    <input v-model="title" />
-    <textarea v-model="content"></textarea>
+    <textarea v-model="prompt"></textarea>
     <button type="button" @click="test">送信</button>
-    <p>あいうえお ＆ {{ posts }}</p>
+    <div v-for="image in images" :key="image">
+      <a :href="image.url" :download="prompt">
+        <img :src="image.url" :title="prompt" />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -16,21 +19,27 @@ export default {
   name: "App",
   data() {
       return {
-        title: "",
-        content: "",
-        posts: ""
+        prompt: "",
+        images: []
       };
     },
     methods: {
       test() {
         axios
-          .post("/test", {
-            title: this.title,
-            content: this.content,
+          .post("/generate", {
+            prompt: this.prompt,
           })
-          .then((res) => {
-            this.posts = res.data.data;
-            console.log(this.posts);
+          .then((response) => {
+            //blobオブジェクトにしたい場合
+            let blob = new Blob([response.data], { type: 'image/png' })
+
+            //imgタグをidでとって、srcにblobのObjectURLを突っ込んで画像表示する
+            let img = document.getElementById('img_tag_id')
+            let url = window.URL || window.webkitURL
+            img.src = url.createObjectURL(blob)
+
+            console.log(img.src)
+            this.images.push({url: img.src})
           })
           .catch((err) => {
             console.log(err);
