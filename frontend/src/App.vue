@@ -1,18 +1,42 @@
 <template>
   <div id="app">
+    <h1>Hello World</h1>
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <input v-model="title" />
+    <textarea v-model="content"></textarea>
+    <button type="button" @click="test">送信</button>
+    <p>あいうえお ＆ {{ posts }}</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import axios from 'axios'
 
 export default {
   name: "App",
-  components: {
-    HelloWorld,
-  },
+  data() {
+      return {
+        title: "",
+        content: "",
+        posts: ""
+      };
+    },
+    methods: {
+      test() {
+        axios
+          .post("/test", {
+            title: this.title,
+            content: this.content,
+          })
+          .then((res) => {
+            this.posts = res.data.data;
+            console.log(this.posts);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+    },
 };
 </script>
 
