@@ -20,7 +20,7 @@ export default {
   data() {
       return {
         prompt: "",
-        images: [],
+        images: []
       };
     },
     methods: {
@@ -33,7 +33,7 @@ export default {
             //blobオブジェクトにしたい場合
             console.log(response)
             let blob = new Blob([response.data], { type: 'image/png' })
-            let imgfile = new File([response.data], 'image.png', {type: 'image/png'});
+            // let imgfile = new File([response.data], 'image.png', {type: 'image/png'});
 
             //imgタグをidでとって、srcにblobのObjectURLを突っ込んで画像表示する
             let src = URL.createObjectURL(blob)
