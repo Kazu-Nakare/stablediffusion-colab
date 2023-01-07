@@ -1,4 +1,3 @@
-from PIL import Image
 from flask import Flask, request, send_file, render_template
 
 # import torch
@@ -28,9 +27,6 @@ def generate():
         buf = io.BytesIO()
         image.save(buf, format="PNG")
         buf.seek(0)
-
-        img = Image.open(buf)
-        img.show()
     return send_file(buf, mimetype="image/png")
 
 
