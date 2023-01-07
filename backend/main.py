@@ -29,7 +29,7 @@ def generate():
         image.save(buf, format="PNG")
         buf.seek(0)
 
-        img = Image.open(io.BytesIO(buf))
+        img = Image.open(buf)
         img.show()
     return send_file(buf, mimetype="image/png")
 
