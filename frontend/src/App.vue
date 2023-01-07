@@ -31,6 +31,7 @@ export default {
           })
           .then((response) => {
             //blobオブジェクトにしたい場合
+            console.log("Hello")
             console.log(response)
             console.log(response.data)
             let blob = new Blob([response.data], { type: 'image/png' })
