@@ -36,13 +36,13 @@ export default {
             console.log(response.data)
             let blob = new Blob([response.data], { type: 'image/png' })
 
-            //imgタグをidでとって、srcにblobのObjectURLを突っ込んで画像表示する
-            let src = URL.createObjectURL(blob)
-
-            let link = document.createElement('a');
-            link.href = src;
-            link.download = this.prompt + '.png';
-            link.click();
+            let reader = new FileReader();
+            reader.readAsDataURL(blob);
+            let src = ""
+            reader.onload = function() {
+              src = reader.result
+            }
+            // let src = URL.createObjectURL(blob)
 
             this.images.push({url: src})
             console.log(src)
