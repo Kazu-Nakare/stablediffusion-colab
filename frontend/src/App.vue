@@ -1,60 +1,39 @@
 <template>
-  <div id="app">
-    <h1>Hello World</h1>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <textarea v-model="prompt"></textarea>
-    <button type="button" @click="test">送信</button>
-    <div v-for="image in images" :key="image">
-      <a :href="image.url" :download="image.prompt">
-        <img :src="image.url" :title="image.prompt" />
-      </a>
-    </div>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-icon x-large class="mr-2">mdi-palette-advanced</v-icon>
+
+        <h2>Stable Diffusion Colab</h2>
+      </div>
+
+      <v-spacer></v-spacer>
+
+        <div class="font-weight-medium align-self-center">V0.1.4</div>
+    </v-app-bar>
+
+    <v-main>
+      <Generator/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import axios from 'axios'
+import Generator from './components/Generator';
 
 export default {
-  name: "App",
-  data() {
-      return {
-        prompt: "",
-        images: []
-      };
-    },
-    methods: {
-      test() {
-        axios
-          .post("/generate", {
-              prompt: this.prompt,
-            },
-            {
-              responseType: 'blob',
-            })
-          .then((response) => {
-            console.log(response)
+  name: 'App',
 
-            let src = URL.createObjectURL(response.data)
-            console.log(src)
+  components: {
+    Generator,
+  },
 
-            this.images.push({url: src, prompt: this.prompt})
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      },
-    },
+  data: () => ({
+    //
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
