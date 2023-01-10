@@ -5,10 +5,9 @@
     <textarea v-model="prompt"></textarea>
     <button type="button" @click="test">送信</button>
     <div v-for="image in images" :key="image">
-      <a :href="image.url" :download="prompt">
-        <img :src="image.url" :title="prompt" />
+      <a :href="image.url" :download="image.prompt">
+        <img :src="image.url" :title="image.prompt" />
       </a>
-    <a :href="url">go</a>
     </div>
   </div>
 </template>
@@ -21,7 +20,6 @@ export default {
   data() {
       return {
         prompt: "",
-        url: "",
         images: []
       };
     },
@@ -29,23 +27,18 @@ export default {
       test() {
         axios
           .post("/generate", {
-            prompt: this.prompt,
-          })
+              prompt: this.prompt,
+            },
+            {
+              responseType: 'blob',
+            })
           .then((response) => {
             console.log(response)
-            let blob = new Blob([response.data], { type: 'image/png' })
-            console.log(blob)
-            // let reader = new FileReader();
-            // reader.readAsDataURL(blob);
-            // let src = ""
-            // reader.onload = function() {
-            //   src = reader.result
-            // }
-            let src = URL.createObjectURL(blob)
+
+            let src = URL.createObjectURL(response.data)
             console.log(src)
 
-            this.url = src
-            // this.images.push({url: src})
+            this.images.push({url: src, prompt: this.prompt})
           })
           .catch((err) => {
             console.log(err);
