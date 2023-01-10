@@ -30,22 +30,19 @@ export default {
             prompt: this.prompt,
           })
           .then((response) => {
-            //blobオブジェクトにしたい場合
-            console.log("Hello")
             console.log(response)
-            console.log(response.data)
             let blob = new Blob([response.data], { type: 'image/png' })
-
-            let reader = new FileReader();
-            reader.readAsDataURL(blob);
-            let src = ""
-            reader.onload = function() {
-              src = reader.result
-            }
-            // let src = URL.createObjectURL(blob)
+            console.log(blob)
+            // let reader = new FileReader();
+            // reader.readAsDataURL(blob);
+            // let src = ""
+            // reader.onload = function() {
+            //   src = reader.result
+            // }
+            let src = URL.createObjectURL(blob)
+            console.log(src)
 
             this.images.push({url: src})
-            console.log(src)
           })
           .catch((err) => {
             console.log(err);
