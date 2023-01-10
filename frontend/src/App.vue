@@ -8,6 +8,7 @@
       <a :href="image.url" :download="prompt">
         <img :src="image.url" :title="prompt" />
       </a>
+    <a :href="url"></a>
     </div>
   </div>
 </template>
@@ -20,6 +21,7 @@ export default {
   data() {
       return {
         prompt: "",
+        url: "",
         images: []
       };
     },
@@ -42,7 +44,8 @@ export default {
             let src = URL.createObjectURL(blob)
             console.log(src)
 
-            this.images.push({url: src})
+            this.url = src
+            // this.images.push({url: src})
           })
           .catch((err) => {
             console.log(err);
