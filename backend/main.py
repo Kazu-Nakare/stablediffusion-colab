@@ -1,15 +1,17 @@
+import os
+import io
 from flask import Flask, request, send_file, render_template
 
-# import torch
+import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
 from diffusers.utils import DIFFUSERS_CACHE
 
-import io
-import os
+torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=os.environ["HF_TOKEN"],
-                                               local_files_only=os.path.exists(DIFFUSERS_CACHE)).to("cuda")
+
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=True,
+                                               local_files_only=os.path.exists(DIFFUSERS_CACHE)).to(torch_device)
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 
@@ -22,7 +24,7 @@ def index(path):
 @ app.route('/generate', methods=["POST"])
 def generate():
     prompt = request.json["prompt"]
-    with autocast("cuda"):
+    with autocast(torch_device):
         image = pipe(prompt)["images"][0]
         buf = io.BytesIO()
         image.save(buf, format="PNG")
