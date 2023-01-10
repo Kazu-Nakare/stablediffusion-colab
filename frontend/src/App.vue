@@ -8,7 +8,7 @@
       <a :href="image.url" :download="prompt">
         <img :src="image.url" :title="prompt" />
       </a>
-    <a :href="url"></a>
+    <a :href="url">go</a>
     </div>
   </div>
 </template>
