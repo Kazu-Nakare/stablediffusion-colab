@@ -10,8 +10,8 @@ from diffusers.utils import DIFFUSERS_CACHE
 torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1", use_auth_token=True,
-                                               local_files_only=os.path.exists(DIFFUSERS_CACHE)).to(torch_device)
+pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1",
+                                               ).to(torch_device)
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 

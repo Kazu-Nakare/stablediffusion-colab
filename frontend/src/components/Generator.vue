@@ -66,7 +66,7 @@
                   clear-icon="mdi-close-circle"
                   prepend-inner-icon="mdi-comment-text">
                   <template v-slot:append-outer>
-                    <v-icon @click="console.log($parent.target.value);">
+                    <v-icon @click="log($parent)">
                       mdi-send
                     </v-icon>
                   </template>
@@ -107,6 +107,9 @@ import draggable from 'vuedraggable'
       }
     },
     methods: {
+      log(parent) {
+        console.log(parent.target.value)
+      },
       generate() {
         this.loading = true
         axios
