@@ -10,7 +10,7 @@ from diffusers import StableDiffusionPipeline
 torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1")
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4")
 pipe.to(torch_device)
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
