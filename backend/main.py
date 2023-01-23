@@ -1,17 +1,17 @@
-import os
+# import os
 import io
 from flask import Flask, request, send_file, render_template
 
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
-from diffusers.utils import DIFFUSERS_CACHE
+# from diffusers.utils import DIFFUSERS_CACHE
 
 torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
 
-pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1",
-                                               ).to(torch_device)
+pipe = StableDiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-2-1")
+pipe.to(torch_device)
 
 app = Flask(__name__, static_folder='../frontend/dist/static', template_folder='../frontend/dist')
 
