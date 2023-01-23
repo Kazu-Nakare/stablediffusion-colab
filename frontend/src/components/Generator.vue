@@ -49,7 +49,14 @@
                       {{ tag.context }}
                     </v-chip>
                   </template>
-                  <v-card class="pa-2">
+                  <v-card class="d-flex flex-row pa-2">
+                    <v-text-field
+                      v-model.number="tags[i].bracket"
+                      type="number"
+                      style="width: 60px"
+                      outlined
+                      hide-details>
+                    </v-text-field>
                     <v-text-field
                       :value="tags[i].context"
                       outlined
