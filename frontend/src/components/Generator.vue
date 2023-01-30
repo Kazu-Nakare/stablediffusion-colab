@@ -137,12 +137,12 @@
       </v-col>
       <v-col>
         <v-card class="pa-2" height="100%">
-          <a v-if="images.slice(-1)[0]" :href="images.slice(-1)[0].url" :download="images.slice(-1)[0].total_prompt">
+          <a v-if="images.slice(-1)[0]" :href="images.slice(-1)[0].url" :download="total_prompt">
             <v-img contain :src="images.slice(-1)[0].url" :title="images.slice(-1)[0].total_prompt"></v-img>
           </a>
         </v-card>
       </v-col>
-      <v-col cols="2" class="white">
+      <v-col cols="1" class="white overflow-auto">
         <v-card class="pa-2" height="100%">
           <div v-for="image in images" :key="image">
             <a :href="image.url" :download="image.total_prompt">
