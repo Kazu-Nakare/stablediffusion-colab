@@ -27,7 +27,7 @@
               color="info"
               indeterminate
             ></v-progress-circular>
-            <v-btn v-else color="warning" elevation="4" @click="generate">
+            <v-btn v-else color="primary" elevation="4" @click="generate">
               GENERATE
             </v-btn>
           </div>
@@ -137,7 +137,7 @@
       </v-col>
       <v-col>
         <v-card class="pa-2" height="100%">
-          <a :href="images.slice(-1)[0].url" :download="images.slice(-1)[0].total_prompt">
+          <a v-if="images.slice(-1)[0]" :href="images.slice(-1)[0].url" :download="images.slice(-1)[0].total_prompt">
             <v-img contain :src="images.slice(-1)[0].url" :title="images.slice(-1)[0].total_prompt"></v-img>
           </a>
         </v-card>
